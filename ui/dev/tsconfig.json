@@ -1,0 +1,14 @@
+{
+  "extends": "@quasar/app-webpack/tsconfig-preset",
+  "exclude": ["node_modules","dev","build", "dist"],
+  "include": ["src"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "noEmit": false,
+    "allowJs": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "resolveJsonModule": true,
+    "declaration": true,
+  },
+}
