@@ -57,7 +57,7 @@ export default {
   unmounted(el: HTMLElement) {
     const table = el.querySelector('table');
     if (table === null) {
-      throw new Error('Work only with q-table');
+      throw new Error('Work only with table tag');
     }
     checkAndClearDragger(table);
   },

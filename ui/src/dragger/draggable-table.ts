@@ -20,7 +20,7 @@ interface EmitterInit {
 }
 
 export interface Emitter extends EmitterInit{
-  on: (type: string, fn: (...arg: Array<unknown>) => void) => Emitter,
+  on: (type: string, fn: (...arg: Array<any>) => void) => Emitter,
   emit: (type: string, ...arg: Array<unknown>) => void
 }
 

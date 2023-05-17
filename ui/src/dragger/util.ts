@@ -8,7 +8,7 @@ export const getTouchyEvent = () => new MouseEvent('mousedown', {
   cancelable: true,
 });
 
-export const touchy = (el: Document | HTMLElement, op: 'add' | 'remove', type: EventType, fn: (evt: MouseEvent) => void) => {
+export const touchy = (el: GlobalEventHandlers, op: 'add' | 'remove', type: EventType, fn: (evt: MouseEvent) => void) => {
   if (op === 'add') {
     el.addEventListener(type, fn);
   } else {
@@ -75,7 +75,7 @@ export const getScrollBarWidth = () => {
   return (w1 - w2);
 };
 
-export const checkIsTable = (ele: unknown) => ele
+export const checkIsTable = (ele: any) => ele
     && typeof ele === 'object'
     && 'nodeType' in ele
     && ele.nodeType === 1
