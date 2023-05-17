@@ -172,7 +172,6 @@ test('test draggable-table check Event error mousemove', () => {
     });
     const target = document.createElement('div');
     td.appendChild(target);
-    console.log('here');
     callback({
       ...evt,
       target,

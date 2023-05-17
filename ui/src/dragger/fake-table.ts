@@ -61,7 +61,8 @@ export default class FakeTable {
     this.dragula = dragula([this.el], {
       staticClass: classes.static,
       direction: mode === 'column' ? 'horizontal' : 'vertical',
-    })
+    });
+    this.dragula
       .on('drag', this._onDrag.bind(this))
       .on('dragend', this._onDragend.bind(this))
       .on('shadow', this._onShadow.bind(this))
