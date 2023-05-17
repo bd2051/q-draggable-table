@@ -53,10 +53,7 @@ export default class DraggableTable {
     this.cellIndex = { x: 0, y: 0 };
     this.el = table;
     if (!checkIsTable(table)) {
-      throw new TypeError(`table-dragger: el must be TABLE HTMLElement, not ${{}.toString.call(table)}`);
-    }
-    if (!table.rows.length) {
-      return;
+      throw new Error(`table-dragger: el must be TABLE HTMLElement, not ${{}.toString.call(table)}`);
     }
     const { options } = this;
     const { mode } = options;
@@ -100,28 +97,27 @@ export default class DraggableTable {
   }
 
   _onTap(event: MouseEvent) {
+    if (!isLeftButton(event) || event.metaKey || event.ctrlKey) {
+      return;
+    }
     const eventTarget = event.target;
     if (eventTarget === null || !(eventTarget instanceof HTMLElement)) {
-      throw new Error('Logic Error');
+      throw new Error('Logic Error 1');
     }
     function getCellElement(element: HTMLElement): HTMLTableCellElement {
       if (!(element instanceof HTMLTableCellElement)) {
         const parent = element.parentElement;
         if (parent === null) {
-          throw new Error('Logic Error');
+          throw new Error('Logic Error 2');
         }
         return getCellElement(parent);
       }
       return element;
     }
     const target = getCellElement(eventTarget);
-    const ignore = !isLeftButton(event) || event.metaKey || event.ctrlKey;
-    if (ignore) {
-      return;
-    }
     const parent = target.parentElement;
     if (!(parent instanceof HTMLTableRowElement)) {
-      throw new Error('Logic Error');
+      throw new Error('Logic Error 3');
     }
     this.cellIndex = { x: target.cellIndex, y: parent.rowIndex };
     this.tappedCoord = { x: event.clientX, y: event.clientY };
@@ -140,7 +136,6 @@ export default class DraggableTable {
     const gapX = Math.abs(event.clientX - tappedCoord.x);
     const gapY = Math.abs(event.clientY - tappedCoord.y);
     let realMode: RealMode;
-
     if (gapX === 0 && gapY === 0) {
       return;
     }
@@ -188,6 +183,6 @@ export default class DraggableTable {
 
   static create(el: HTMLTableElement, options: Partial<DragOptions>) {
     const d = new DraggableTable(el, options);
-    return d && d.emitter;
+    return d.emitter;
   }
 }
