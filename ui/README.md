@@ -9,12 +9,15 @@
 
 
 # Directive v-draggable-table
-> Short description of the directive
+> The directive makes q-table component draggable. Works only with q-table. Allows you to move both columns and rows. With some settings, such as virtual-scroll, row movement is not available
 
+## Installation
 
-# Usage
+```bash
+npm install quasar-ui-q-draggable-table
+```
 
-## Quasar CLI project
+## Usage
 
 Create and register a boot file:
 
@@ -45,95 +48,117 @@ export default {
 </script>
 ```
 
-## Vue CLI project
+Use directive ```v-draggable-table``` with q-table component
 
-```js
-import Vue from 'vue'
-import Plugin from 'quasar-ui-q-draggable-table'
-import 'quasar-ui-q-draggable-table/dist/index.css'
-
-Vue.use(Plugin)
+```vue
+<q-table
+  v-draggable-table="{
+    options,
+    onDrop,
+    onDrag,
+    onShadowMove,
+    onOut,
+  }"
+  title="Drag columns"
+  :rows="rows"
+  :columns="columns"
+  row-key="name"
+  data-testid="column"
+/>
 ```
 
-**OR**:
+### Directive value
 
-```html
-<style src="quasar-ui-q-draggable-table/dist/index.css"></style>
+### `options`
+
+|key|description|options|
+|:---|---|---|
+| `mode` | Available mode for moving. Default: 'column' | 'column' / 'row' / 'free'  |
+| `dragHandler` | Selector of the element being moved. Required for 'free' mode | string |
+| `onlyBody` | If true, only main body of table is moved. Relevant for 'row' mode | boolean |
+| `fixFirstColumn` | If true , all columns except the first one are moved . Relevant for 'column' mode | boolean |
+
+  onDrop?: (from?: number, to?: number, table?: HTMLTableElement, mode?: RealMode) => void,
+  onDrag?: (table?: HTMLTableElement, mode?: RealMode) => void,
+  onShadowMove?: (from?: number, to?: number, table?: HTMLTableElement, mode?: RealMode) => void,
+  onOut?: (table?: HTMLTableElement, mode?: RealMode) => void,
+
+### `onDrop(from?: number, to?: number, table?: HTMLTableElement, mode?: 'column'|'row')`
+ 
+Hook that is triggered when an element is dropped
+
+### `onDrag(table?: HTMLTableElement, mode?: 'column'|'row')`
+
+Hook that is triggered when an element is dragged
+
+### `onShadowMove(from?: number, to?: number, table?: HTMLTableElement, mode?: 'column'|'row')`
+
+Hook that triggers when the shadow of element is moved
+
+### `onOut(table?: HTMLTableElement, mode?: 'column'|'row')`
+
+Hook that triggers when element goes outside the table
+
+**<u>Note:</u>** Library does not redraw original component, but only represents indexes of elements being moved. Use hooks to rerender table. All indexes correspond to real cells of the table.
+
+## Quick example
+
+```vue
+<template>
+  <q-page padding>
+    <q-table
+      v-draggable-table="{
+        onDrop,
+      }"
+      title="Drag columns"
+      :rows="rows"
+      :columns="columns"
+      row-key="name"
+    />
+  </q-page>
+</template>
 
 <script>
-import { Directive } from 'quasar-ui-q-draggable-table'
+import { ref } from 'vue'
 
 export default {
-  
-  
-  directives: {
-    Directive
+  setup () {
+    const columns = ref([
+      { name: 'name', label: 'Name', field: 'name' },
+      { name: 'calories', label: 'Calories', field: 'calories' },
+      { name: 'fat', label: 'Fat (g)', field: 'fat' },
+      { name: 'carbs', label: 'Carbs (g)', field: 'carbs' },
+      { name: 'protein', label: 'Protein (g)', field: 'protein' },
+    ])
+    const rows = ref([
+      {
+        name: 'Frozen Yogurt',
+        calories: 159,
+        fat: 6.0,
+        carbs: 24,
+        protein: 4.0,
+      },
+      {
+        name: 'Ice cream sandwich',
+        calories: 237,
+        fat: 9.0,
+        carbs: 37,
+        protein: 4.3,
+      },
+    ])
+    return {
+      columns,
+      rows,
+    }
+  },
+  methods: {
+    onDrop(from, to) {
+      this.columns.splice(to, 0, this.columns.splice(from, 1)[0]);
+    },
   }
-  
 }
 </script>
 ```
-
-## UMD variant
-
-Exports `window.DraggableTable`.
-
-Add the following tag(s) after the Quasar ones:
-
-```html
-<head>
-  <!-- AFTER the Quasar stylesheet tags: -->
-  <link href="https://cdn.jsdelivr.net/npm/quasar-ui-q-draggable-table/dist/index.min.css" rel="stylesheet" type="text/css">
-</head>
-<body>
-  <!-- at end of body, AFTER Quasar script(s): -->
-  <script src="https://cdn.jsdelivr.net/npm/quasar-ui-q-draggable-table/dist/index.umd.min.js"></script>
-</body>
-```
-If you need the RTL variant of the CSS, then go for the following (instead of the above stylesheet link):
-```html
-<link href="https://cdn.jsdelivr.net/npm/quasar-ui-q-draggable-table/dist/index.rtl.min.css" rel="stylesheet" type="text/css">
-```
-
-# Setup
-```bash
-$ yarn
-```
-
-# Developing
-```bash
-# start dev in SPA mode
-$ yarn dev
-
-# start dev in UMD mode
-$ yarn dev:umd
-
-# start dev in SSR mode
-$ yarn dev:ssr
-
-# start dev in Cordova iOS mode
-$ yarn dev:ios
-
-# start dev in Cordova Android mode
-$ yarn dev:android
-
-# start dev in Electron mode
-$ yarn dev:electron
-```
-
-# Building package
-```bash
-$ yarn build
-```
-
-# Adding Testing Components
-in the `ui/dev/src/pages` you can add Vue files to test your component/directive. When using `yarn dev` to build the UI, any pages in that location will automatically be picked up by dynamic routing and added to the test page.
-
-# Adding Assets
-If you have a component that has assets, like language or icon-sets, you will need to provide these for UMD. In the `ui/build/script.javascript.js` file, you will find a couple of commented out commands that call `addAssets`. Uncomment what you need and add your assets to have them be built and put into the `ui/dist` folder.
-
-# Donate
-If you appreciate the work that went into this, please consider [donating to Quasar](https://donate.quasar.dev).
 
 # License
 MIT (c) bd2051 <bd2051@mail.ru>

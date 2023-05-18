@@ -81,5 +81,12 @@
   ],
   "dependencies": {
     "dragula-with-animation": "^3.7.4"
-  }
+  },
+  "keywords": [
+    "quasar",
+    "quasar-ui",
+    "drag and drop",
+    "draggable",
+    "table"
+  ]
 }
