@@ -11,6 +11,7 @@
       :rows="rows"
       :columns="columns"
       row-key="name"
+      data-testid="column"
     />
     <q-table
       v-draggable-table="{
@@ -28,6 +29,7 @@
       :rows="rows"
       :columns="columns"
       row-key="name"
+      data-testid="row"
     />
     <q-table
       v-draggable-table="{
@@ -46,6 +48,7 @@
       :rows="rows"
       :columns="columns"
       row-key="name"
+      data-testid="free"
     />
   </q-page>
 </template>

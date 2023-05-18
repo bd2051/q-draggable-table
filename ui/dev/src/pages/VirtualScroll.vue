@@ -16,6 +16,7 @@
       row-key="index"
       v-model:pagination="pagination"
       :rows-per-page-options="[0]"
+      data-testid="column-fix"
     />
     <q-table
       v-draggable-table="{
@@ -30,6 +31,7 @@
       row-key="index"
       v-model:pagination="pagination"
       :rows-per-page-options="[0]"
+      data-testid="column"
     />
   </q-page>
 </template>

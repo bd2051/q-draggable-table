@@ -17,7 +17,8 @@
     "build:js": "node build/script.javascript.js",
     "build:css": "node build/script.css.js",
     "lint": "eslint --ext .js,.ts ./src --fix",
-    "test": "jest"
+    "test:unit": "jest",
+    "test:e2e": "playwright test --ui"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
   "bugs": "",
   "homepage": "",
   "devDependencies": {
+    "@playwright/test": "^1.33.0",
     "@quasar/app-webpack": "^3.7.2",
     "@quasar/extras": "^1.0.0",
     "@rollup/plugin-buble": "^0.21.3",
@@ -49,6 +51,7 @@
     "jest-environment-jsdom": "^29.5.0",
     "jest-mock-extended": "^3.0.4",
     "open": "^7.3.0",
+    "playwright": "^1.33.0",
     "postcss": "^8.1.9",
     "quasar": "^2.0.0",
     "rimraf": "^3.0.0",

@@ -194,6 +194,7 @@ export default {
   watch: {
     visibleColumns: {
       handler(val) {
+        console.log(val)
         const visibleColumnsMap = this.visibleColumns.reduce((acc, curr, index) => {
           acc[curr] = index + 1
           return acc
@@ -215,7 +216,15 @@ export default {
       }
     },
     onDropColumn(from, to) {
-      this.columns.splice(to, 0, this.columns.splice(from, 1)[0]);
+      this.visibleColumns = this.visibleColumns.map((col, index, arr) => {
+        if (index === to) {
+          return arr[from]
+        }
+        if (index === from) {
+          return arr[to]
+        }
+        return col
+      })
     },
     onDropRow(from, to) {
       const offset = (this.pagination.page - 1) * this.pagination.rowsPerPage
