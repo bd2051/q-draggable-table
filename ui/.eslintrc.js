@@ -1,7 +1,11 @@
 module.exports = {
-  extends: ['eslint:recommended', 'airbnb-base', 'plugin:@typescript-eslint/recommended'],
+  extends: [
+    'eslint:recommended',
+    'airbnb-base',
+    'plugin:@typescript-eslint/recommended',
+  ],
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'import'],
   root: true,
   rules: {
     'import/no-extraneous-dependencies': 'off',
@@ -9,9 +13,13 @@ module.exports = {
     'no-underscore-dangle': ['error', { allowAfterThis: true }],
   },
   settings: {
+    'import/parser': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
     'import/resolver': {
-      node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      typescript: {
+        alwaysTryTypes: true,
+        project: './tsconfig.json',
       },
     },
   },

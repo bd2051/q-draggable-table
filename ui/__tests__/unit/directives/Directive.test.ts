@@ -1,6 +1,6 @@
 import { DirectiveBinding } from 'vue';
 import { mock } from 'jest-mock-extended';
-import Directive from '../../src/directives/Directive';
+import Directive from '@/directives/Directive';
 
 test('Directive test error', () => {
   const notTable = document.createElement('div');

@@ -1,4 +1,4 @@
-import DraggableTable from '../../src/dragger/draggable-table';
+import DraggableTable from '@/dragger/draggable-table';
 
 test('test draggable-table notTable', () => {
   const unknownElement = document.createElement('tbody') as any;

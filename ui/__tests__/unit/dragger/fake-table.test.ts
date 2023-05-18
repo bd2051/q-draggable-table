@@ -1,6 +1,6 @@
-import dragula from 'dragula-with-animation';
-import FakeTable from '../../src/dragger/fake-table';
-import DraggableTable from '../../src/dragger/draggable-table';
+import 'dragula-with-animation';
+import FakeTable from '@/dragger/fake-table';
+import DraggableTable from '@/dragger/draggable-table';
 
 interface DragulaMock {
   on: (type: string, fn: (o?: unknown) => void) => DragulaMock

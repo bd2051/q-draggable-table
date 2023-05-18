@@ -1,4 +1,4 @@
-import { getScrollBarWidth, isLeftButton } from '../../src/dragger/util';
+import { getScrollBarWidth, isLeftButton } from '@/dragger/util';
 
 test('test utils getScrollBarWidth', () => {
   Object.defineProperty(document.documentElement, 'scrollHeight', {
