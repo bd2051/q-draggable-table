@@ -123,7 +123,7 @@ export default class DraggableTable {
       throw new Error('Logic Error 3');
     }
     this.cellIndex = { x: target.cellIndex, y: parent.rowIndex };
-    if (event instanceof TouchEvent) {
+    if (!(event instanceof MouseEvent)) {
       this.tappedCoord = { x: event.touches[0].clientX, y: event.touches[0].clientY };
     } else {
       this.tappedCoord = { x: event.clientX, y: event.clientY };
@@ -140,8 +140,8 @@ export default class DraggableTable {
 
   _startBecauseMouseMoved(event: MouseEvent | TouchEvent) {
     const { tappedCoord, options: { mode } } = this;
-    const clientX = event instanceof TouchEvent ? event.touches[0].clientX : event.clientX;
-    const clientY = event instanceof TouchEvent ? event.touches[0].clientY : event.clientY;
+    const clientX = !(event instanceof MouseEvent) ? event.touches[0].clientX : event.clientX;
+    const clientY = !(event instanceof MouseEvent) ? event.touches[0].clientY : event.clientY;
     const gapX = Math.abs(clientX - tappedCoord.x);
     const gapY = Math.abs(clientY - tappedCoord.y);
     let realMode: RealMode;
