@@ -99,7 +99,7 @@ export default class DraggableTable {
     });
   }
 
-  _onTap(event: MouseEvent) {
+  _onTap(event: MouseEvent | TouchEvent) {
     if (!isLeftButton(event) || event.metaKey || event.ctrlKey) {
       return;
     }
@@ -123,7 +123,11 @@ export default class DraggableTable {
       throw new Error('Logic Error 3');
     }
     this.cellIndex = { x: target.cellIndex, y: parent.rowIndex };
-    this.tappedCoord = { x: event.clientX, y: event.clientY };
+    if (event instanceof TouchEvent) {
+      this.tappedCoord = { x: event.touches[0].clientX, y: event.touches[0].clientY };
+    } else {
+      this.tappedCoord = { x: event.clientX, y: event.clientY };
+    }
 
     touchy(document, 'add', 'mousemove', this._startBecauseMouseMoved);
     touchy(document, 'add', 'mouseup', this._mouseUpHandler);
@@ -134,10 +138,12 @@ export default class DraggableTable {
     touchy(document, 'remove', 'mouseup', this._mouseUpHandler);
   }
 
-  _startBecauseMouseMoved(event: MouseEvent) {
+  _startBecauseMouseMoved(event: MouseEvent | TouchEvent) {
     const { tappedCoord, options: { mode } } = this;
-    const gapX = Math.abs(event.clientX - tappedCoord.x);
-    const gapY = Math.abs(event.clientY - tappedCoord.y);
+    const clientX = event instanceof TouchEvent ? event.touches[0].clientX : event.clientX;
+    const clientY = event instanceof TouchEvent ? event.touches[0].clientY : event.clientY;
+    const gapX = Math.abs(clientX - tappedCoord.x);
+    const gapY = Math.abs(clientY - tappedCoord.y);
     let realMode: RealMode;
     if (gapX === 0 && gapY === 0) {
       return;

@@ -72,20 +72,22 @@ test('test draggable-table check Event', () => {
   });
   let ignoreFirstMouseUp = 0;
   document.addEventListener = jest.fn().mockImplementation((event, callback) => {
-    if (event === 'mouseup' && !ignoreFirstMouseUp) {
-      ignoreFirstMouseUp = 1;
-      return;
+    if (event === 'mouseup' || event === 'mousemove') {
+      if (event === 'mouseup' && !ignoreFirstMouseUp) {
+        ignoreFirstMouseUp = 1;
+        return;
+      }
+      const evt = new MouseEvent(event, {
+        view: window,
+        bubbles: true,
+        cancelable: true,
+      });
+      callback({
+        ...evt,
+        target: document,
+        buttons: 1,
+      });
     }
-    const evt = new MouseEvent(event, {
-      view: window,
-      bubbles: true,
-      cancelable: true,
-    });
-    callback({
-      ...evt,
-      target: document,
-      buttons: 1,
-    });
   });
   document.removeEventListener = jest.fn();
   tr.removeEventListener = jest.fn();
@@ -94,15 +96,15 @@ test('test draggable-table check Event', () => {
     dragHandler: 'tr',
   });
   dragger.emitter.destroy();
-  expect(tr.addEventListener).toBeCalledWith(
+  expect(tr.addEventListener).toHaveBeenCalledWith(
     'mousedown',
     expect.any(Function),
   );
-  expect(tr.addEventListener).toBeCalledTimes(1);
-  expect(tr.removeEventListener).toBeCalledTimes(1);
+  expect(tr.addEventListener).toBeCalledTimes(2);
+  expect(tr.removeEventListener).toBeCalledTimes(2);
   expect(document.addEventListener).toBeCalledWith('mousemove', expect.any(Function));
-  expect(document.addEventListener).toBeCalledTimes(3);
-  expect(document.removeEventListener).toBeCalledTimes(3);
+  expect(document.addEventListener).toBeCalledTimes(6);
+  expect(document.removeEventListener).toBeCalledTimes(6);
 });
 
 test('test draggable-table check event error mousedown', () => {

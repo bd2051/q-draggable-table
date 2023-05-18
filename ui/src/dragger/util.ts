@@ -2,17 +2,25 @@ import classes from './classes';
 
 type EventType = 'mouseup' | 'mousedown' | 'mousemove'
 
+const TOUCH = {
+  mouseup: 'touchend',
+  mousedown: 'touchstart',
+  mousemove: 'touchmove',
+} as const;
+
 export const getTouchyEvent = () => new MouseEvent('mousedown', {
   view: window,
   bubbles: true,
   cancelable: true,
 });
 
-export const touchy = (el: GlobalEventHandlers, op: 'add' | 'remove', type: EventType, fn: (evt: MouseEvent) => void) => {
+export const touchy = (el: GlobalEventHandlers, op: 'add' | 'remove', type: EventType, fn: (evt: MouseEvent | TouchEvent) => void) => {
   if (op === 'add') {
     el.addEventListener(type, fn);
+    el.addEventListener(TOUCH[type], fn);
   } else {
     el.removeEventListener(type, fn);
+    el.removeEventListener(TOUCH[type], fn);
   }
 };
 
