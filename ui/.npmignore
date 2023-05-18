@@ -1,5 +1,9 @@
+/__tests__
 /build
+/coverage
 /dev
+/playwright-report
+/test-results
 umd-test.html
 
 .DS_Store

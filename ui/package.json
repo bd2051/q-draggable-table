@@ -1,8 +1,8 @@
 {
   "name": "quasar-ui-q-draggable-table",
-  "version": "0.0.1",
-  "author": "bd2051 <bd2051@mail.ru>",
-  "description": "My awesome component",
+  "version": "1.0.0-beta.1",
+  "author": "bd2051 <bd2051work@mail.ru>",
+  "description": "Drag and drop for q-table of quasar components",
   "license": "MIT",
   "module": "dist/index.esm.js",
   "main": "dist/index.common.js",
@@ -18,14 +18,17 @@
     "build:css": "node build/script.css.js",
     "lint": "eslint --ext .js,.ts ./src --fix",
     "test:unit": "jest",
-    "test:e2e": "playwright test --ui"
+    "test:e2e": "playwright test --ui",
+    "publish:package": "npm run build && npm publish"
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://github.com/bd2051/q-draggable-table.git"
   },
-  "bugs": "",
-  "homepage": "",
+  "bugs": {
+    "url": "https://github.com/bd2051/q-draggable-table/issues"
+  },
+  "homepage": "https://github.com/bd2051/q-draggable-table#readme",
   "devDependencies": {
     "@playwright/test": "^1.33.0",
     "@quasar/app-webpack": "^3.7.2",
