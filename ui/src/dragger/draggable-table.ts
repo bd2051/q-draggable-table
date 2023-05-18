@@ -19,13 +19,16 @@ interface EmitterInit {
   destroy: () => void,
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type EventParams = Array<any>
+
 export interface Emitter extends EmitterInit{
-  on: (type: string, fn: (...arg: Array<any>) => void) => Emitter,
-  emit: (type: string, ...arg: Array<unknown>) => void
+  on: (type: string, fn: (...arg: EventParams) => void) => Emitter,
+  emit: (type: string, ...arg: EventParams) => void
 }
 
 interface EmitterEvent {
-  [key: string]: Array<(...arg: Array<unknown>) => void>
+  [key: string]: Array<(...arg: EventParams) => void>
 }
 
 export default class DraggableTable {

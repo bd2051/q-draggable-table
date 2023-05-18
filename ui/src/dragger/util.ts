@@ -75,6 +75,7 @@ export const getScrollBarWidth = () => {
   return (w1 - w2);
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const checkIsTable = (ele: any) => ele
     && typeof ele === 'object'
     && 'nodeType' in ele
