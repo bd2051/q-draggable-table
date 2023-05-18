@@ -10,7 +10,6 @@
     "module": "esnext",
     "resolveJsonModule": true,
     "strictPropertyInitialization": false,
-    "declaration": true,
     "paths": {
       "@/*": ["./src/*"]
     }

@@ -13,6 +13,7 @@ const { version } = require('../package.json');
 
 const buildConf = require('./config');
 const buildUtils = require('./utils');
+const typescript = require("@rollup/plugin-typescript");
 
 const rollupPlugins = [
   replace({
@@ -27,6 +28,7 @@ const rollupPlugins = [
   }),
   json(),
   commonjs(),
+  typescript(),
   // buble({
   //   objectAssign: 'Object.assign'
   // })
@@ -36,7 +38,7 @@ const builds = [
   {
     rollup: {
       input: {
-        input: pathResolve('../src/index.esm.js'),
+        input: pathResolve('../src/index.esm.ts'),
       },
       output: {
         file: pathResolve('../dist/index.esm.js'),
@@ -51,7 +53,7 @@ const builds = [
   {
     rollup: {
       input: {
-        input: pathResolve('../src/index.common.js'),
+        input: pathResolve('../src/index.common.ts'),
       },
       output: {
         file: pathResolve('../dist/index.common.js'),
@@ -66,7 +68,7 @@ const builds = [
   {
     rollup: {
       input: {
-        input: pathResolve('../src/index.umd.js'),
+        input: pathResolve('../src/index.umd.ts'),
       },
       output: {
         name: 'DraggableTable',
