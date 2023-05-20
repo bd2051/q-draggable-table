@@ -1,6 +1,6 @@
 {
   "name": "quasar-ui-q-draggable-table",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.1",
   "author": "bd2051 <bd2051work@mail.ru>",
   "description": "Drag and drop for q-table of quasar components",
   "license": "MIT",

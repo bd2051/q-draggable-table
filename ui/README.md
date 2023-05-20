@@ -21,31 +21,27 @@ npm install quasar-ui-q-draggable-table
 
 Create and register a boot file:
 
+Create in *boot* folder `q-draggable-table.js`
 ```js
-import Vue from 'vue'
-import Plugin from 'quasar-ui-q-draggable-table'
-import 'quasar-ui-q-draggable-table/dist/index.css'
+import { boot } from 'quasar/wrappers';
+import qDraggableTable from 'quasar-ui-q-draggable-table';
+import 'quasar-ui-q-draggable-table/dist/index.css';
 
-Vue.use(Plugin)
+export default boot(({ app }) => {
+  app.use(qDraggableTable);
+});
 ```
 
-**OR**:
+Register in *boot* of `quasr.conf.js` "q-draggable-table"
 
-```html
-<style src="quasar-ui-q-draggable-table/dist/index.css"></style>
-
-<script>
-import { Directive } from 'quasar-ui-q-draggable-table'
-
-export default {
-  
-  
-  directives: {
-    Directive
+```js
+module.exports = configure(function (ctx) {
+  return {
+    // ...
+    boot: ["q-draggable-table"],
+    // ...
   }
-  
-}
-</script>
+})
 ```
 
 Use directive ```v-draggable-table``` with q-table component
@@ -63,7 +59,6 @@ Use directive ```v-draggable-table``` with q-table component
   :rows="rows"
   :columns="columns"
   row-key="name"
-  data-testid="column"
 />
 ```
 
@@ -78,10 +73,6 @@ Use directive ```v-draggable-table``` with q-table component
 | `onlyBody` | If true, only main body of table is moved. Relevant for 'row' mode | boolean |
 | `fixFirstColumn` | If true , all columns except the first one are moved . Relevant for 'column' mode | boolean |
 
-  onDrop?: (from?: number, to?: number, table?: HTMLTableElement, mode?: RealMode) => void,
-  onDrag?: (table?: HTMLTableElement, mode?: RealMode) => void,
-  onShadowMove?: (from?: number, to?: number, table?: HTMLTableElement, mode?: RealMode) => void,
-  onOut?: (table?: HTMLTableElement, mode?: RealMode) => void,
 
 ### `onDrop(from?: number, to?: number, table?: HTMLTableElement, mode?: 'column'|'row')`
  
@@ -159,6 +150,10 @@ export default {
 }
 </script>
 ```
+
+## Demo
+
+[Codesanbox example](https://codesandbox.io/p/sandbox/agitated-bogdan-tngniw?file=%2Fsrc%2Fpages%2FBasic.vue)
 
 # License
 MIT (c) bd2051 <bd2051@mail.ru>
