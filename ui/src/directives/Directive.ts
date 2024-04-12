@@ -40,6 +40,9 @@ export default {
   name: 'draggable-table',
   mounted(el: HTMLElement, binding: DirectiveBinding) {
     const table = el.querySelector('table');
+    if (binding.value.options?.mode === 'none') {
+      return;
+    }
     if (table === null) {
       throw new Error('Work only with table tag');
     }
@@ -48,6 +51,9 @@ export default {
   },
   updated(el: HTMLElement, binding: DirectiveBinding) {
     const table = el.querySelector('table');
+    if (binding.value.options?.mode === 'none') {
+      return;
+    }
     if (table === null) {
       throw new Error('Work only with table tag');
     }
@@ -56,9 +62,8 @@ export default {
   },
   unmounted(el: HTMLElement) {
     const table = el.querySelector('table');
-    if (table === null) {
-      throw new Error('Work only with table tag');
+    if (table !== null) {
+      checkAndClearDragger(table);
     }
-    checkAndClearDragger(table);
   },
 };

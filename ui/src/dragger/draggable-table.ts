@@ -3,7 +3,7 @@ import classes from './classes';
 import { checkIsTable, isLeftButton, touchy } from './util';
 
 export interface DragOptions {
-  mode: RealMode | 'free',
+  mode: RealMode | 'free' | 'none',
   dragHandler: string,
   onlyBody: boolean,
   fixFirstColumn: boolean
