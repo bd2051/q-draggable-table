@@ -3,6 +3,7 @@
     <q-toggle
       v-model="isGrid"
       label="Grid Mode"
+      data-testid="toggle"
     />
     <q-table
       v-draggable-table="{
@@ -19,7 +20,7 @@
       :rows="rows"
       :columns="columns"
       row-key="name"
-      data-testid="column"
+      data-testid="none"
     />
     <q-table
       v-draggable-table="{
@@ -36,7 +37,7 @@
       :rows="rows"
       :columns="columns"
       row-key="name"
-      data-testid="column"
+      data-testid="none-column"
     />
     <q-table
       v-draggable-table="{
@@ -53,7 +54,7 @@
       :rows="rows"
       :columns="columns"
       row-key="name"
-      data-testid="column"
+      data-testid="column-none"
     />
   </q-page>
 </template>

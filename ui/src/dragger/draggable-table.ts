@@ -154,6 +154,10 @@ export default class DraggableTable {
       return;
     }
 
+    if (mode === 'none') {
+      throw new Error('Logic error');
+    }
+
     if (mode === 'free') {
       realMode = gapX < gapY ? 'row' : 'column';
     } else {
