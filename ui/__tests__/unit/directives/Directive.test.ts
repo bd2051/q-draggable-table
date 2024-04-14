@@ -7,6 +7,7 @@ test('Directive test error', () => {
   const binding = mock<DirectiveBinding>() as unknown as DirectiveBinding;
   const errorText = 'Work only with table tag';
   expect(() => Directive.mounted(notTable, binding)).toThrow(errorText);
+  expect(() => Directive.beforeUpdate(notTable)).not.toThrow(Error);
   expect(() => Directive.updated(notTable, binding)).toThrow(errorText);
   expect(() => Directive.unmounted(notTable)).not.toThrow(Error);
 });
@@ -31,6 +32,7 @@ test('Directive test', () => {
     onOut: () => ({}),
   };
   expect(() => Directive.mounted(div, binding)).not.toThrow(Error);
+  expect(() => Directive.beforeUpdate(div)).not.toThrow(Error);
   expect(() => Directive.updated(div, binding)).not.toThrow(Error);
   expect(() => Directive.unmounted(div)).not.toThrow(Error);
 });
@@ -58,6 +60,7 @@ test('Directive test mode none', () => {
     },
   };
   expect(() => Directive.mounted(div, binding)).not.toThrow(Error);
+  expect(() => Directive.beforeUpdate(div)).not.toThrow(Error);
   expect(() => Directive.updated(div, binding)).not.toThrow(Error);
   expect(() => Directive.unmounted(div)).not.toThrow(Error);
 });

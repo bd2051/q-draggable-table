@@ -49,6 +49,12 @@ export default {
     checkAndClearDragger(table);
     setDragger(table, binding.value);
   },
+  beforeUpdate(el: HTMLElement) {
+    const table = el.querySelector('table');
+    if (table !== null) {
+      checkAndClearDragger(table);
+    }
+  },
   updated(el: HTMLElement, binding: DirectiveBinding) {
     const table = el.querySelector('table');
     if (binding.value.options?.mode === 'none') {

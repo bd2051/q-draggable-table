@@ -66,13 +66,28 @@ Use directive ```v-draggable-table``` with q-table component
 
 ### `options`
 
-|key|description|options|
-|:---|---|---|
-| `mode` | Available mode for moving. Default: 'column' | 'column' / 'row' / 'free'  |
-| `dragHandler` | Selector of the element being moved. Required for 'free' mode | string |
-| `onlyBody` | If true, only main body of table is moved. Relevant for 'row' mode | boolean |
-| `fixFirstColumn` | If true , all columns except the first one are moved . Relevant for 'column' mode | boolean |
+|key|description| options                            |
+|:---|---|------------------------------------|
+| `mode` | Available mode for moving. Default: 'column' | 'column' / 'row' / 'free' / 'none' |
+| `dragHandler` | Selector of the element being moved. Required for 'free' mode | string                             |
+| `onlyBody` | If true, only main body of table is moved. Relevant for 'row' mode | boolean                            |
+| `fixFirstColumn` | If true , all columns except the first one are moved . Relevant for 'column' mode | boolean                            |
 
+#### Mode 'none'
+In some cases, it may be necessary to disable table dragging. For example, when using grid mode, the table is missing and dragging will not work. Use the mode 'none' option
+
+#### Options Reactivity
+In general, changing an option does not cause a component change. Use the component's key to rerender with new options
+
+```vue
+<q-table
+  v-draggable-table="{
+    onDrop,
+    options,
+  }"
+  :key="options.mode"
+/>
+```
 
 ### `onDrop(from?: number, to?: number, table?: HTMLTableElement, mode?: 'column'|'row')`
  
