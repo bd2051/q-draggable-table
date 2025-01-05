@@ -5,7 +5,11 @@
         options: {
           mode: 'row',
           onlyBody: true,
-          dragHandler: 'tr:not(:first-child):not(:nth-child(2)) > td:first-child',
+          dragHandler: '.dragger-row',
+          dragula: {
+            moves: onMoves,
+            accepts: onAccepts,
+          }
         },
         onDrop: onDropRow,
         onDrag,
@@ -21,7 +25,7 @@
     >
       <template v-slot:body="props">
         <q-tr :props="props">
-          <q-td key="name" :props="props">
+          <q-td key="name" :props="props" :class="props.rowIndex === 0 || props.rowIndex === 1 ? '' : 'dragger-row'">
             {{ props.row.name }}
           </q-td>
           <q-td key="calories" :props="props">
@@ -220,6 +224,12 @@ export default {
     },
     onOut(...params) {
       console.log('onOut', params)
+    },
+    onMoves(el) {
+      return el?.querySelector('.dragger-row');
+    },
+    onAccepts(el, source, handle, sibling) {
+      return sibling?.querySelector('.dragger-row');
     }
   }
 }

@@ -42,7 +42,7 @@ export default class FakeTable {
 
   dragula: Drake;
 
-  constructor({ originTable, mode, dragulaOptions = {} }: FakeTableParams) {
+  constructor({ originTable, mode, dragulaOptions }: FakeTableParams) {
     const {
       emitter, cellIndex, el: originEl, options,
     } = originTable;
