@@ -1,4 +1,4 @@
-import dragula, { Drake } from 'dragula';
+import dragula, { DragulaOptions, Drake } from 'dragula';
 import classes from './classes';
 import {
   insertBeforeSibling,
@@ -18,6 +18,7 @@ export type RealMode = 'row' | 'column'
 interface FakeTableParams {
   originTable: DraggableTable,
   mode: RealMode
+  dragulaOptions: DragulaOptions
 }
 
 export default class FakeTable {
@@ -41,7 +42,7 @@ export default class FakeTable {
 
   dragula: Drake;
 
-  constructor({ originTable, mode }: FakeTableParams) {
+  constructor({ originTable, mode, dragulaOptions = {} }: FakeTableParams) {
     const {
       emitter, cellIndex, el: originEl, options,
     } = originTable;
@@ -66,6 +67,7 @@ export default class FakeTable {
         return !sibling?.classList.contains(classes.static);
       },
       direction: mode === 'column' ? 'horizontal' : 'vertical',
+      ...dragulaOptions,
     });
     this.dragula
       .on('drag', this._onDrag.bind(this))

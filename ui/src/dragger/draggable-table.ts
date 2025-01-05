@@ -1,3 +1,4 @@
+import { DragulaOptions } from 'dragula';
 import FakeTable, { RealMode } from './fake-table';
 import classes from './classes';
 import { checkIsTable, isLeftButton, touchy } from './util';
@@ -6,7 +7,8 @@ export interface DragOptions {
   mode: RealMode | 'free' | 'none',
   dragHandler: string,
   onlyBody: boolean,
-  fixFirstColumn: boolean
+  fixFirstColumn: boolean,
+  dragula: DragulaOptions
 }
 
 interface Coord {
@@ -50,6 +52,7 @@ export default class DraggableTable {
       dragHandler: '',
       onlyBody: true,
       fixFirstColumn: false,
+      dragula: {},
       ...userOptions,
     };
     this.tappedCoord = { x: 0, y: 0 };
@@ -167,6 +170,7 @@ export default class DraggableTable {
     const sortTable = new FakeTable({
       mode: realMode,
       originTable: this,
+      dragulaOptions: this.options.dragula,
     });
     touchy(document, 'remove', 'mousemove', this._startBecauseMouseMoved);
     touchy(document, 'add', 'mouseup', sortTable.destroy);
