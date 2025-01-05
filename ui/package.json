@@ -80,7 +80,8 @@
     "last 4 iOS versions"
   ],
   "dependencies": {
-    "dragula-with-animation": "^3.7.4"
+    "@types/dragula": "^3.7.5",
+    "dragula": "^3.7.3"
   },
   "keywords": [
     "quasar",

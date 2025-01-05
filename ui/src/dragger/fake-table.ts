@@ -1,4 +1,4 @@
-import dragula from 'dragula-with-animation';
+import dragula, { Drake } from 'dragula';
 import classes from './classes';
 import {
   insertBeforeSibling,
@@ -39,7 +39,7 @@ export default class FakeTable {
 
   el: HTMLUListElement;
 
-  dragula: Dragula;
+  dragula: Drake;
 
   constructor({ originTable, mode }: FakeTableParams) {
     const {
@@ -59,7 +59,12 @@ export default class FakeTable {
       return previous.appendChild(li) && previous;
     }, document.createElement('ul'));
     this.dragula = dragula([this.el], {
-      staticClass: classes.static,
+      moves(el) {
+        return !el?.classList.contains(classes.static);
+      },
+      accepts(el, source, handle, sibling) {
+        return !sibling?.classList.contains(classes.static);
+      },
       direction: mode === 'column' ? 'horizontal' : 'vertical',
     });
     this.dragula
