@@ -66,12 +66,13 @@ Use directive ```v-draggable-table``` with q-table component
 
 ### `options`
 
-|key|description| options                            |
-|:---|---|------------------------------------|
-| `mode` | Available mode for moving. Default: 'column' | 'column' / 'row' / 'free' / 'none' |
-| `dragHandler` | Selector of the element being moved. Required for 'free' mode | string                             |
-| `onlyBody` | If true, only main body of table is moved. Relevant for 'row' mode | boolean                            |
-| `fixFirstColumn` | If true , all columns except the first one are moved . Relevant for 'column' mode | boolean                            |
+| key              | description                                                                                                            | options                            |
+|:-----------------|------------------------------------------------------------------------------------------------------------------------|------------------------------------|
+| `mode`           | Available mode for moving. Default: 'column'                                                                           | 'column' / 'row' / 'free' / 'none' |
+| `dragHandler`    | Selector of the element being moved. Required for 'free' mode                                                          | string                             |
+| `onlyBody`       | If true, only main body of table is moved. Relevant for 'row' mode                                                     | boolean                            |
+| `fixFirstColumn` | If true , all columns except the first one are moved . Relevant for 'column' mode                                      | boolean                            |
+| `dragula`        | Adds [dragula package](https://github.com/bevacqua/dragula) options. Moves, accepts, and direction parameters are already in use. Redefine them with care | DragulaOptions                     |
 
 #### Mode 'none'
 In some cases, it may be necessary to disable table dragging. For example, when using grid mode, the table is missing and dragging will not work. Use the mode 'none' option
