@@ -120,7 +120,7 @@ export default class FakeTable {
     this.emitter.emit('drag', this.originTable.el, this.options.mode);
   }
 
-  _onDragend(droppedItem: HTMLElement) {
+  _onDragend(droppedItem: Element) {
     const {
       originTable: { el: originEl }, emitter, index, mode, el,
     } = this;
@@ -132,7 +132,7 @@ export default class FakeTable {
     emitter.emit('drop', from, to, originEl, mode);
   }
 
-  _onShadow(draggingItem: HTMLElement) {
+  _onShadow(draggingItem: Element) {
     const {
       originTable: { el: originEl }, emitter, index, el, mode,
     } = this;

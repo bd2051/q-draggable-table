@@ -21,7 +21,6 @@
       :rows="rows"
       :columns="columns"
       row-key="name"
-      data-testid="row"
     >
       <template v-slot:body="props">
         <q-tr :props="props">

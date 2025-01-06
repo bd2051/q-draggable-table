@@ -1,4 +1,4 @@
-import 'dragula-with-animation';
+import 'dragula';
 import FakeTable from '@/dragger/fake-table';
 import DraggableTable from '@/dragger/draggable-table';
 
@@ -15,7 +15,7 @@ const dragulaMock: DragulaMock = {
   destroy: jest.fn(),
 };
 
-jest.mock('dragula-with-animation', () => () => dragulaMock);
+jest.mock('dragula', () => () => dragulaMock);
 
 test('test fake-table destroy', () => {
   const td = document.createElement('td');
@@ -46,10 +46,12 @@ test('test fake-table destroy', () => {
   const fakeTable = new FakeTable({
     originTable,
     mode: 'column',
+    dragulaOptions: {},
   });
   const fakeTable2 = new FakeTable({
     originTable,
     mode: 'row',
+    dragulaOptions: {},
   });
   expect(dragCallback).toBeCalledTimes(2);
   expect(() => fakeTable.destroy()).not.toThrow(Error);
